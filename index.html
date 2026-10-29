@@ -5,485 +5,174 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ระบบค้นหารหัสปัญหา | AA Help Desk</title>
   <style>
-    /* ธีมสีสว่าง (Light Mode) */
     :root {
-      --bg: #f8fafc;
-      --paper: #ffffff;
-      --ink: #0f172a;
-      --muted: #64748b;
-      --line: #e2e8f0;
-      --blue: #2563eb;
-      --blue-hover: #1d4ed8;
-      --blue-light: #eff6ff;
-      --green: #059669;
-      --green-light: #ecfdf5;
-      --amber: #d97706;
-      --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
-      --radius: 12px;
-      --input-bg: #ffffff;
+      --bg: #f8fafc; --paper: #ffffff; --ink: #0f172a; --muted: #64748b;
+      --line: #e2e8f0; --blue: #2563eb; --blue-hover: #1d4ed8;
+      --blue-light: #eff6ff; --green: #059669; --green-light: #ecfdf5;
+      --amber: #d97706; --shadow: 0 4px 20px -2px rgba(0,0,0,.05);
+      --radius: 12px; --input-bg: #ffffff;
     }
-
-    /* ธีมสีมืด (Dark Mode) */
     [data-theme="dark"] {
-      --bg: #0f172a;
-      --paper: #1e293b;
-      --ink: #f8fafc;
-      --muted: #94a3b8;
-      --line: #334155;
-      --blue: #3b82f6;
-      --blue-hover: #60a5fa;
-      --blue-light: #1e3a8a;
-      --green: #10b981;
-      --green-light: #064e3b;
-      --amber: #f59e0b;
-      --shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+      --bg: #0f172a; --paper: #1e293b; --ink: #f8fafc; --muted: #94a3b8;
+      --line: #334155; --blue: #3b82f6; --blue-hover: #60a5fa;
+      --blue-light: #1e3a8a; --green: #10b981; --green-light: #064e3b;
+      --amber: #f59e0b; --shadow: 0 4px 20px -2px rgba(0,0,0,.3);
       --input-bg: #0f172a;
     }
-
     * { box-sizing: border-box; }
     body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      font-size: 15px;
-      line-height: 1.5;
-      transition: background 0.2s, color 0.2s;
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+      font-size: 15px; line-height: 1.5; transition: background .2s,color .2s;
     }
-
-    .app {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 20px 16px 60px;
-    }
-
-    /* Top Bar */
+    .app { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
     .top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      background: var(--paper);
-      padding: 12px 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--line);
-      box-shadow: var(--shadow);
+      display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;
+      background:var(--paper); padding:12px 20px; border-radius:var(--radius);
+      border:1px solid var(--line); box-shadow:var(--shadow);
     }
-    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand { display:flex; align-items:center; gap:12px; }
     .logo {
-      width: 40px; height: 40px;
-      background: var(--blue);
-      color: #fff;
-      font-weight: 800;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      font-size: 16px;
+      width:40px; height:40px; background:var(--blue); color:#fff; font-weight:800;
+      border-radius:10px; display:grid; place-items:center; font-size:16px;
     }
-    .brandname { font-size: 16px; font-weight: 700; color: var(--ink); }
-    .brandhint { font-size: 12px; color: var(--muted); }
-    
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .brandname { font-size:16px; font-weight:700; color:var(--ink); }
+    .brandhint { font-size:12px; color:var(--muted); }
+    .top-actions { display:flex; align-items:center; gap:10px; }
     .btn-control {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      color: var(--ink);
-      padding: 6px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: background 0.15s;
+      background:var(--paper); border:1px solid var(--line); color:var(--ink);
+      padding:6px 12px; border-radius:8px; font-size:12px; font-weight:600;
+      cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:background .15s;
     }
-    .btn-control:hover { background: var(--line); }
-    
-    .btn-logout {
-      background: #fee2e2;
-      border-color: #fca5a5;
-      color: #b91c1c;
-    }
-    [data-theme="dark"] .btn-logout {
-      background: #450a0a;
-      border-color: #7f1d1d;
-      color: #fca5a5;
-    }
-
-    /* Search & Filters Section */
+    .btn-control:hover { background:var(--line); }
+    .btn-logout { background:#fee2e2; border-color:#fca5a5; color:#b91c1c; }
+    [data-theme="dark"] .btn-logout { background:#450a0a; border-color:#7f1d1d; color:#fca5a5; }
     .search-panel {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
+      background:var(--paper); border:1px solid var(--line); border-radius:16px;
+      padding:20px; box-shadow:var(--shadow); margin-bottom:20px;
     }
-
-    .search-input-wrap {
-      position: relative;
-      margin-bottom: 14px;
-    }
+    .search-input-wrap { position:relative; margin-bottom:14px; }
     .search-icon {
-      position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 18px;
-      color: var(--muted);
+      position:absolute; left:16px; top:50%; transform:translateY(-50%);
+      font-size:18px; color:var(--muted);
     }
     input[type=search] {
-      width: 100%;
-      padding: 14px 44px 14px 46px;
-      font-size: 16px;
-      border: 2px solid var(--line);
-      background: var(--input-bg);
-      color: var(--ink);
-      border-radius: var(--radius);
-      outline: none;
-      transition: all 0.2s;
+      width:100%; padding:14px 44px 14px 46px; font-size:16px;
+      border:2px solid var(--line); background:var(--input-bg); color:var(--ink);
+      border-radius:var(--radius); outline:none; transition:all .2s;
     }
-    input[type=search]:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
+    input[type=search]:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(37,99,235,.15); }
     .btn-clear {
-      position: absolute;
-      right: 12px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--line);
-      border: none;
-      border-radius: 6px;
-      width: 28px;
-      height: 28px;
-      cursor: pointer;
-      color: var(--muted);
-      display: grid;
-      place-items: center;
-      font-weight: bold;
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      background:var(--line); border:none; border-radius:6px; width:28px; height:28px;
+      cursor:pointer; color:var(--muted); display:grid; place-items:center; font-weight:bold;
     }
-    .btn-clear:hover { color: var(--ink); }
-
-    /* Quick Tags */
-    .quick-tags {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-    .quick-tags-title { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .btn-clear:hover { color:var(--ink); }
+    .quick-tags { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+    .quick-tags-title { font-size:12px; font-weight:600; color:var(--muted); }
     .tag-btn {
-      background: var(--bg);
-      border: 1px solid var(--line);
-      border-radius: 20px;
-      padding: 5px 12px;
-      font-size: 12px;
-      color: var(--ink);
-      cursor: pointer;
-      transition: all 0.15s;
+      background:var(--bg); border:1px solid var(--line); border-radius:20px;
+      padding:5px 12px; font-size:12px; color:var(--ink); cursor:pointer; transition:all .15s;
     }
-    .tag-btn:hover {
-      background: var(--blue-light);
-      color: var(--blue);
-      border-color: var(--blue);
-    }
-
-    /* Filter Controls Grid */
+    .tag-btn:hover { background:var(--blue-light); color:var(--blue); border-color:var(--blue); }
     .filter-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:12px; padding-top:14px; border-top:1px solid var(--line);
     }
-    .filter-group { display: flex; flex-direction: column; gap: 4px; }
-    .filter-group label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+    .filter-group { display:flex; flex-direction:column; gap:4px; }
+    .filter-group label { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; }
     .filter-group select {
-      padding: 9px 12px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: var(--input-bg);
-      font-size: 13px;
-      color: var(--ink);
-      outline: none;
-      cursor: pointer;
+      padding:9px 12px; border-radius:8px; border:1px solid var(--line);
+      background:var(--input-bg); font-size:13px; color:var(--ink); outline:none; cursor:pointer;
     }
-    .filter-group select:focus { border-color: var(--blue); }
-
+    .filter-group select:focus { border-color:var(--blue); }
     .fav-btn-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background: var(--bg);
-      border: 1px solid var(--line);
-      color: var(--amber);
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: auto;
+      display:flex; align-items:center; justify-content:center; gap:6px;
+      background:var(--bg); border:1px solid var(--line); color:var(--amber);
+      border-radius:8px; padding:9px 12px; font-size:13px; font-weight:600;
+      cursor:pointer; margin-top:auto;
     }
-    .fav-btn-toggle.active {
-      background: rgba(245, 158, 11, 0.15);
-      border-color: var(--amber);
-    }
-
-    /* Results Header */
+    .fav-btn-toggle.active { background:rgba(245,158,11,.15); border-color:var(--amber); }
     .results-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin: 24px 0 14px;
+      display:flex; justify-content:space-between; align-items:flex-end; margin:24px 0 14px;
     }
-    .results-head h2 { font-size: 18px; margin: 0; font-weight: 700; color: var(--ink); }
-    .results-count { font-size: 13px; color: var(--muted); margin-top: 2px; }
-
-    /* Problem Cards Grid */
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-      gap: 16px;
-    }
+    .results-head h2 { font-size:18px; margin:0; font-weight:700; color:var(--ink); }
+    .results-count { font-size:13px; color:var(--muted); margin-top:2px; }
+    .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:16px; }
     .card {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.15s, border-color 0.15s;
+      background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+      padding:16px; box-shadow:var(--shadow); display:flex; flex-direction:column;
+      transition:transform .15s,border-color .15s;
     }
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: var(--blue);
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+    .card:hover { transform:translateY(-2px); border-color:var(--blue); }
+    .card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
     .code-badge {
-      font-family: monospace;
-      font-size: 15px;
-      font-weight: 700;
-      background: var(--blue-light);
-      color: var(--blue);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--line);
+      font-family:monospace; font-size:15px; font-weight:700; background:var(--blue-light);
+      color:var(--blue); padding:4px 10px; border-radius:6px; border:1px solid var(--line);
     }
-    .star-btn {
-      background: transparent;
-      border: none;
-      font-size: 22px;
-      color: var(--muted);
-      cursor: pointer;
-      padding: 0 4px;
-      line-height: 1;
-    }
-    .star-btn.on { color: var(--amber); }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--ink);
-      margin: 0 0 10px;
-      line-height: 1.4;
-    }
-
-    .tags-list {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-      margin-bottom: 12px;
-    }
-    .badge-tag {
-      font-size: 11px;
-      background: var(--bg);
-      color: var(--muted);
-      padding: 2px 8px;
-      border-radius: 4px;
-      border: 1px solid var(--line);
-    }
-
-    /* Solution Box */
-    .solution-box {
-      background: var(--bg);
-      border-left: 3px solid var(--blue);
-      padding: 10px 12px;
-      border-radius: 0 6px 6px 0;
-      margin-top: auto;
-    }
-    .solution-title {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--blue);
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    .solution-text {
-      font-size: 13px;
-      color: var(--ink);
-      white-space: pre-wrap;
-      line-height: 1.5;
-    }
-
-    .note-box {
-      background: rgba(217, 119, 6, 0.1);
-      border-left: 3px solid var(--amber);
-      padding: 8px 12px;
-      border-radius: 0 6px 6px 0;
-      margin-top: 8px;
-      font-size: 12px;
-      color: var(--amber);
-    }
-
-    .card-footer {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid var(--line);
-    }
-    .meta-info {
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    /* ปุ่มคัดลอกใหญ่พิเศษ */
+    .star-btn { background:transparent; border:none; font-size:22px; color:var(--muted); cursor:pointer; padding:0 4px; line-height:1; }
+    .star-btn.on { color:var(--amber); }
+    .card-title { font-size:15px; font-weight:600; color:var(--ink); margin:0 0 10px; line-height:1.4; }
+    .tags-list { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+    .badge-tag { font-size:11px; background:var(--bg); color:var(--muted); padding:2px 8px; border-radius:4px; border:1px solid var(--line); }
+    .solution-box { background:var(--bg); border-left:3px solid var(--blue); padding:10px 12px; border-radius:0 6px 6px 0; margin-top:auto; }
+    .solution-title { font-size:11px; font-weight:700; color:var(--blue); text-transform:uppercase; margin-bottom:4px; }
+    .solution-text { font-size:13px; color:var(--ink); white-space:pre-wrap; line-height:1.5; }
+    .note-box { background:rgba(217,119,6,.1); border-left:3px solid var(--amber); padding:8px 12px; border-radius:0 6px 6px 0; margin-top:8px; font-size:12px; color:var(--amber); }
+    .card-footer { display:flex; flex-direction:column; gap:10px; margin-top:14px; padding-top:12px; border-top:1px solid var(--line); }
+    .meta-info { font-size:12px; color:var(--muted); display:flex; justify-content:space-between; }
     .btn-copy-large {
-      width: 100%;
-      background: var(--blue);
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 14px;
-      font-weight: 700;
-      color: #fff;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      transition: background 0.15s, transform 0.1s;
+      width:100%; background:var(--blue); border:none; border-radius:10px; padding:12px;
+      font-size:14px; font-weight:700; color:#fff; cursor:pointer; display:flex;
+      align-items:center; justify-content:center; gap:8px; transition:background .15s,transform .1s;
     }
-    .btn-copy-large:hover { background: var(--blue-hover); }
-    .btn-copy-large:active { transform: scale(0.98); }
-
-    /* Empty State */
+    .btn-copy-large:hover { background:var(--blue-hover); }
+    .btn-copy-large:active { transform:scale(.98); }
     .empty-state {
-      background: var(--paper);
-      border: 2px dashed var(--line);
-      border-radius: var(--radius);
-      padding: 40px 20px;
-      text-align: center;
-      margin-top: 20px;
+      background:var(--paper); border:2px dashed var(--line); border-radius:var(--radius);
+      padding:40px 20px; text-align:center; margin-top:20px;
     }
-    .empty-icon { font-size: 40px; margin-bottom: 8px; }
-    .btn-reset {
-      margin-top: 14px;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    /* Modal Overlay สำหรับยืนยันตัวตน */
+    .empty-icon { font-size:40px; margin-bottom:8px; }
+    .btn-reset { margin-top:14px; background:var(--blue); color:#fff; border:none; padding:8px 16px; border-radius:8px; font-weight:600; cursor:pointer; }
     .modal-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(15, 23, 42, 0.85);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
+      position:fixed; inset:0; background:rgba(15,23,42,.85); backdrop-filter:blur(4px);
+      display:flex; align-items:center; justify-content:center; z-index:9999; padding:16px;
     }
     .modal-box {
-      background: var(--paper);
-      padding: 24px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 380px;
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.3);
-      text-align: center;
-      border: 1px solid var(--line);
+      background:var(--paper); padding:24px; border-radius:16px; width:100%; max-width:380px;
+      box-shadow:0 20px 25px -5px rgba(0,0,0,.3); text-align:center; border:1px solid var(--line);
     }
-    .modal-box h3 { margin-top: 0; color: var(--ink); font-size: 18px; }
-    .modal-box p { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .modal-box h3 { margin-top:0; color:var(--ink); font-size:18px; }
+    .modal-box p { font-size:13px; color:var(--muted); margin-bottom:16px; }
     .modal-box input {
-      width: 100%;
-      padding: 12px;
-      border: 2px solid var(--line);
-      background: var(--input-bg);
-      color: var(--ink);
-      border-radius: 8px;
-      font-size: 15px;
-      margin-bottom: 12px;
-      outline: none;
-      text-align: center;
+      width:100%; padding:12px; border:2px solid var(--line); background:var(--input-bg);
+      color:var(--ink); border-radius:8px; font-size:15px; margin-bottom:12px;
+      outline:none; text-align:center;
     }
-    .modal-box input:focus { border-color: var(--blue); }
+    .modal-box input:focus { border-color:var(--blue); }
     .modal-box button {
-      width: 100%;
-      background: var(--blue);
-      color: #fff;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 15px;
+      width:100%; background:var(--blue); color:#fff; border:none; padding:12px;
+      border-radius:8px; font-weight:bold; cursor:pointer; font-size:15px;
     }
-    .modal-error { color: #ef4444; font-size: 12px; margin-top: 8px; display: none; }
-
-    /* Toast Notification */
+    .modal-error { color:#ef4444; font-size:12px; margin-top:8px; display:none; }
     .toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--ink);
-      color: var(--paper);
-      border: 1px solid var(--line);
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-size: 14px;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
-      display: none;
-      z-index: 1000;
-      font-weight: 600;
+      position:fixed; bottom:20px; right:20px; background:var(--ink); color:var(--paper);
+      border:1px solid var(--line); padding:12px 20px; border-radius:10px; font-size:14px;
+      box-shadow:0 10px 15px -3px rgba(0,0,0,.3); display:none; z-index:1000; font-weight:600;
     }
-
-    .hidden { display: none !important; }
-
-    @media (max-width: 640px) {
-      .app { padding: 12px 10px 40px; }
-      .cards-grid { grid-template-columns: 1fr; }
-      .filter-grid { grid-template-columns: 1fr 1fr; }
+    .hidden { display:none !important; }
+    @media (max-width:640px) {
+      .app { padding:12px 10px 40px; }
+      .top { padding:10px 12px; gap:10px; }
+      .top-actions { gap:6px; }
+      .btn-control { padding:6px 8px; }
+      .cards-grid { grid-template-columns:1fr; }
+      .filter-grid { grid-template-columns:1fr 1fr; }
     }
   </style>
 </head>
 <body data-theme="light">
 
-  <!-- Modal ยืนยันตัวตน (ซ่อนตัวอักษรเป็นรหัสผ่านทั้ง 2 ช่อง) -->
   <div id="authModal" class="modal-overlay hidden">
     <div class="modal-box">
       <h3>🔒 ยืนยันตัวตนเข้าระบบ</h3>
@@ -495,116 +184,99 @@
     </div>
   </div>
 
-<main class="app">
-  <!-- Top Navigation -->
-  <header class="top">
-    <div class="brand">
-      <div class="logo">AA</div>
+  <main class="app">
+    <header class="top">
+      <div class="brand">
+        <div class="logo">AA</div>
+        <div>
+          <div class="brandname">AA Help Desk</div>
+          <div class="brandhint">ระบบค้นหาและแก้ปัญหารหัสข้อผิดพลาด</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="themeToggle" class="btn-control" title="สลับโหมดสว่าง/มืด">
+          <span id="themeIcon">🌙</span> <span id="themeText">โหมดมืด</span>
+        </button>
+        <button id="btnLogout" class="btn-control btn-logout" title="ออกจากระบบ">🚪 ล็อกเอาต์</button>
+      </div>
+    </header>
+
+    <section class="search-panel">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input id="search" type="search" placeholder="พิมพ์อาการเสีย, รหัสปัญหา (เช่น UV, LENS, HWYJ01)..." autocomplete="off">
+        <button id="clear" class="btn-clear hidden" title="ล้างคำค้น">✕</button>
+      </div>
+      <div class="quick-tags">
+        <span class="quick-tags-title">ค้นหาบ่อย:</span>
+        <div id="dynamicTags" style="display:inline-flex;gap:6px;flex-wrap:wrap;"></div>
+      </div>
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label for="category">หมวดหมู่</label>
+          <select id="category">
+            <option value="">ทั้งหมด</option>
+            <option value="ฮาร์ดแวร์">ฮาร์ดแวร์ (Hardware)</option>
+            <option value="ซอฟต์แวร์">ซอฟต์แวร์ (Software)</option>
+            <option value="การสอบเทียบ">การสอบเทียบ/ตรวจ sample</option>
+            <option value="ชน/กริปเปอร์">ชน/กริปเปอร์เสียรูป</option>
+            <option value="เปลี่ยนรุ่น">เปลี่ยนรุ่น/เปลี่ยนวัสดุ</option>
+            <option value="จุดแสง">จุดแสง (Light spot)</option>
+            <option value="ค่าดรอป UV">ค่าดรอป UV</option>
+            <option value="วัสดุ / LENS">วัสดุ / LENS</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="program">โปรแกรม</label>
+          <select id="program">
+            <option value="">ทุกโปรแกรม</option>
+            <option value="LQ">Auto Lieqi (LQ)</option>
+            <option value="GC">โปรแกรมออโต้ (GC)</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label for="platform">แพลตฟอร์ม</label>
+          <select id="platform">
+            <option value="">ทุกแพลตฟอร์ม</option>
+            <option value="HW">HW</option><option value="MM">MM</option>
+            <option value="RX">RX</option><option value="TX">TX</option>
+          </select>
+        </div>
+        <button id="favToggle" class="fav-btn-toggle">☆ รายการโปรด (<span id="favNum">0</span>)</button>
+      </div>
+    </section>
+
+    <div class="results-head">
       <div>
-        <div class="brandname">AA Help Desk</div>
-        <div class="brandhint">ระบบค้นหาและแก้ปัญหารหัสข้อผิดพลาด</div>
+        <h2 id="resultTitle">รายการรหัสปัญหาทั้งหมด</h2>
+        <div class="results-count" id="resultCount">กำลังโหลดข้อมูล...</div>
       </div>
     </div>
-    <div class="top-actions">
-      <!-- ปุ่มเปลี่ยนโหมด มืด/สว่าง -->
-      <button id="themeToggle" class="btn-control" title="สลับโหมดสว่าง/มืด">
-        <span id="themeIcon">🌙</span> <span id="themeText">โหมดมืด</span>
-      </button>
-      <!-- ปุ่มล็อกเอาต์ -->
-      <button id="btnLogout" class="btn-control btn-logout" title="ออกจากระบบ">
-        🚪 ล็อกเอาต์
-      </button>
+    <section id="results" class="cards-grid"></section>
+    <div id="empty" class="empty-state hidden">
+      <div class="empty-icon">🔎</div>
+      <h3>ไม่พบข้อมูลที่ค้นหา</h3>
+      <p>ลองเปลี่ยนคำค้นหา หรือกดล้างตัวกรองเพื่อดูรายการทั้งหมดอีกครั้ง</p>
+      <button id="btnReset" class="btn-reset">ล้างตัวกรองทั้งหมด</button>
     </div>
-  </header>
+  </main>
 
-  <!-- Search & Filters Panel -->
-  <section class="search-panel">
-    <div class="search-input-wrap">
-      <span class="searchicon">🔍</span>
-      <input id="search" type="search" placeholder="พิมพ์อาการเสีย, รหัสปัญหา (เช่น UV, LENS, HWYJ01)..." autocomplete="off">
-      <button id="clear" class="btn-clear hidden" title="ล้างคำค้น">✕</button>
-    </div>
-
-    <!-- Quick Tags -->
-    <div class="quick-tags">
-      <span class="quick-tags-title">ค้นหาบ่อย:</span>
-      <div id="dynamicTags" style="display:inline-flex; gap:6px; flex-wrap:wrap;"></div>
-    </div>
-
-    <!-- Filter Dropdowns -->
-    <div class="filter-grid">
-      <div class="filter-group">
-        <label for="category">หมวดหมู่</label>
-        <select id="category">
-          <option value="">ทั้งหมด</option>
-          <option value="ฮาร์ดแวร์">ฮาร์ดแวร์ (Hardware)</option>
-          <option value="ซอฟต์แวร์">ซอฟต์แวร์ (Software)</option>
-          <option value="การสอบเทียบ">การสอบเทียบ/ตรวจ sample</option>
-          <option value="ชน/กริปเปอร์">ชน/กริปเปอร์เสียรูป</option>
-          <option value="เปลี่ยนรุ่น">เปลี่ยนรุ่น/เปลี่ยนวัสดุ</option>
-          <option value="จุดแสง">จุดแสง (Light spot)</option>
-          <option value="ค่าดรอป UV">ค่าดรอป UV</option>
-          <option value="วัสดุ / LENS">วัสดุ / LENS</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="program">โปรแกรม</label>
-        <select id="program">
-          <option value="">ทุกโปรแกรม</option>
-          <option value="LQ">Auto Lieqi (LQ)</option>
-          <option value="GC">โปรแกรมออโต้ (GC)</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <label for="platform">แพลตฟอร์ม</label>
-        <select id="platform">
-          <option value="">ทุกแพลตฟอร์ม</option>
-          <option value="HW">HW</option>
-          <option value="MM">MM</option>
-          <option value="RX">RX</option>
-          <option value="TX">TX</option>
-        </select>
-      </div>
-
-      <button id="favToggle" class="fav-btn-toggle">
-        ☆ รายการโปรด (<span id="favNum">0</span>)
-      </button>
-    </div>
-  </section>
-
-  <!-- Results Count Header -->
-  <div class="results-head">
-    <div>
-      <h2 id="resultTitle">รายการรหัสปัญหาทั้งหมด</h2>
-      <div class="results-count" id="resultCount">กำลังโหลดข้อมูล...</div>
-    </div>
-  </div>
-
-  <!-- Result Cards List -->
-  <section id="results" class="cards-grid"></section>
-
-  <!-- Empty State View -->
-  <div id="empty" class="empty-state hidden">
-    <div class="empty-icon">🔎</div>
-    <h3>ไม่พบข้อมูลที่ค้นหา</h3>
-    <p>ลองเปลี่ยนคำค้นหา หรือกดล้างตัวกรองเพื่อดูรายการทั้งหมดอีกครั้ง</p>
-    <button id="btnReset" class="btn-reset">ล้างตัวกรองทั้งหมด</button>
-  </div>
-</main>
-
-<div id="toast" class="toast">คัดลอกรหัสเรียบร้อยแล้ว!</div>
+  <div id="toast" class="toast">คัดลอกรหัสเรียบร้อยแล้ว!</div>
 
 <script>
+"use strict";
+
 let DATA = [];
 const $ = id => document.getElementById(id);
+
 let favorites = new Set();
 try {
   favorites = new Set(JSON.parse(localStorage.getItem("aaProblemFavorites") || "[]"));
-} catch(e) {}
+} catch (e) {
+  favorites = new Set();
+}
 
-// ระบบ Dark / Light Mode
+// -------------------- Theme --------------------
 const themeToggle = $("themeToggle");
 const themeIcon = $("themeIcon");
 const themeText = $("themeText");
@@ -612,6 +284,7 @@ const themeText = $("themeText");
 function setTheme(theme) {
   document.body.setAttribute("data-theme", theme);
   localStorage.setItem("aaTheme", theme);
+
   if (theme === "dark") {
     themeIcon.textContent = "☀️";
     themeText.textContent = "โหมดสว่าง";
@@ -626,21 +299,23 @@ themeToggle.addEventListener("click", () => {
   setTheme(current === "dark" ? "light" : "dark");
 });
 
-const savedTheme = localStorage.getItem("aaTheme") || "light";
-setTheme(savedTheme);
+setTheme(localStorage.getItem("aaTheme") || "light");
 
-// ระบบจัดการคำค้นหาบ่อย
+// -------------------- Search History --------------------
 const defaultQueries = ["UV", "LENS", "กาว", "撞机", "相机", "报警"];
+
 function getSearchHistory() {
   try {
-    let hist = JSON.parse(localStorage.getItem("aaSearchHistory") || "[]");
+    const hist = JSON.parse(localStorage.getItem("aaSearchHistory") || "[]");
     return hist.length > 0 ? hist : defaultQueries;
-  } catch(e) {
+  } catch (e) {
     return defaultQueries;
   }
 }
+
 function recordSearchQuery(q) {
   if (!q || q.length < 2) return;
+
   try {
     let hist = JSON.parse(localStorage.getItem("aaSearchHistory") || "[]");
     hist = hist.filter(item => item !== q);
@@ -648,63 +323,84 @@ function recordSearchQuery(q) {
     if (hist.length > 6) hist = hist.slice(0, 6);
     localStorage.setItem("aaSearchHistory", JSON.stringify(hist));
     renderDynamicTags();
-  } catch(e) {}
+  } catch (e) {}
 }
+
 function renderDynamicTags() {
-  let tags = getSearchHistory();
-  $("dynamicTags").innerHTML = tags.map(t => `<button class="tag-btn" data-query="${esc(t)}">${esc(t)}</button>`).join("");
+  const tags = getSearchHistory();
+  $("dynamicTags").innerHTML = tags
+    .map(t => `<button class="tag-btn" data-query="${esc(t)}">${esc(t)}</button>`)
+    .join("");
 }
 
-// ตรวจสอบเวลาล็อกเอาต์ตามช่วงเวลา 07:50 และ 19:50
-function checkTimeAndAuth() {
+// -------------------- Session / Auto Logout --------------------
+// รอบเช้า: 07:50 - 19:49
+// รอบเย็น: 19:50 - 07:49 ของวันถัดไป
+function getCurrentSessionKey() {
   const now = new Date();
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
+  const minutes = now.getHours() * 60 + now.getMinutes();
 
-  const isMorningTarget = (hours === 7 && minutes >= 50 && minutes <= 59);
-  const isEveningTarget = (hours === 19 && minutes >= 50 && minutes <= 59);
+  const dateKey = date => [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
 
-  const targetSessionKey = isMorningTarget ? "MORNING_0750" : isEveningTarget ? "EVENING_1950" : null;
-
-  const isManuallyLoggedOut = localStorage.getItem("aaManuallyLoggedOut") === "true";
-
-  if (isManuallyLoggedOut) {
-    $("modalMsg").textContent = "คุณได้ออกจากระบบแล้ว กรุณากรอกรหัสเพื่อเข้าใช้งาน";
-    $("authModal").classList.remove("hidden");
-    return;
+  if (minutes >= 470 && minutes < 1190) {
+    return dateKey(now) + "_MORNING";
   }
 
-  if (targetSessionKey) {
-    const lastVerifiedSession = localStorage.getItem("aaVerifiedSessionKey");
-    if (lastVerifiedSession !== targetSessionKey) {
-      $("modalMsg").textContent = isMorningTarget ? "ถึงเวลาบังคับล็อกอินรอบเช้า (07.50 น.)" : "ถึงเวลาบังคับล็อกอินรอบเย็น (19.50 น.)";
-      $("authModal").classList.remove("hidden");
-    }
+  if (minutes >= 1190) {
+    return dateKey(now) + "_EVENING";
+  }
+
+  const yesterday = new Date(now);
+  yesterday.setDate(yesterday.getDate() - 1);
+  return dateKey(yesterday) + "_EVENING";
+}
+
+function showLoginModal(message) {
+  $("modalMsg").textContent = message;
+  $("authModal").classList.remove("hidden");
+}
+
+function checkTimeAndAuth() {
+  const currentSession = getCurrentSessionKey();
+  const verifiedSession = localStorage.getItem("aaVerifiedSessionKey");
+  const manuallyLoggedOut = localStorage.getItem("aaManuallyLoggedOut") === "true";
+
+  if (manuallyLoggedOut || verifiedSession !== currentSession) {
+    // เคลียร์สิทธิ์ของรอบเก่า ป้องกันการนำ Session เก่ามาใช้ซ้ำ
+    localStorage.removeItem("aaVerifiedSessionKey");
+
+    showLoginModal(
+      manuallyLoggedOut
+        ? "คุณได้ออกจากระบบแล้ว กรุณากรอกรหัสเพื่อเข้าใช้งาน"
+        : "ถึงเวลาสิ้นสุดรอบการใช้งาน กรุณาเข้าสู่ระบบใหม่"
+    );
+  } else {
+    $("authModal").classList.add("hidden");
   }
 }
 
-// กดปุ่ม ล็อกเอาต์เอง
+// กดล็อกเอาต์ด้วยตนเอง
 $("btnLogout").addEventListener("click", () => {
   localStorage.setItem("aaManuallyLoggedOut", "true");
   localStorage.removeItem("aaVerifiedSessionKey");
-  $("modalMsg").textContent = "คุณได้ออกจากระบบแล้ว กรุณากรอกรหัสเพื่อเข้าใช้งาน";
-  $("authModal").classList.remove("hidden");
+  $("inputCode").value = "";
+  $("inputPass").value = "";
+  $("modalError").style.display = "none";
+  checkTimeAndAuth();
 });
 
+// เข้าสู่ระบบ
 $("btnLogin").addEventListener("click", () => {
   const code = $("inputCode").value.trim();
   const pass = $("inputPass").value.trim();
+
   if (code === "eqaab" && pass === "212224") {
+    localStorage.setItem("aaVerifiedSessionKey", getCurrentSessionKey());
     localStorage.removeItem("aaManuallyLoggedOut");
-    
-    const now = new Date();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    const isMorningTarget = (hours === 7 && minutes >= 50 && minutes <= 59);
-    const isEveningTarget = (hours === 19 && minutes >= 50 && minutes <= 59);
-    const currentSessionKey = isMorningTarget ? "MORNING_0750" : isEveningTarget ? "EVENING_1950" : "MANUAL_LOGIN_" + Date.now();
-    
-    localStorage.setItem("aaVerifiedSessionKey", currentSessionKey);
 
     $("authModal").classList.add("hidden");
     $("modalError").style.display = "none";
@@ -715,8 +411,33 @@ $("btnLogin").addEventListener("click", () => {
   }
 });
 
+// กด Enter เพื่อยืนยันล็อกอิน
+[$("inputCode"), $("inputPass")].forEach(input => {
+  input.addEventListener("keydown", event => {
+    if (event.key === "Enter") $("btnLogin").click();
+  });
+});
+
+// ตรวจสอบ Session ทุกวินาที และเมื่อกลับมาเปิดแท็บ
+setInterval(checkTimeAndAuth, 1000);
+
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden) checkTimeAndAuth();
+});
+
+// ซิงก์สถานะล็อกอินระหว่างแท็บใน Browser เดียวกัน
+window.addEventListener("storage", event => {
+  if (event.key === "aaVerifiedSessionKey" || event.key === "aaManuallyLoggedOut") {
+    checkTimeAndAuth();
+  }
+});
+
+// -------------------- Helpers --------------------
 const norm = s => String(s ?? "").toLocaleLowerCase().normalize("NFKC");
-const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({
+  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+}[c]));
 
 function showToast(msg) {
   const toast = $("toast");
@@ -728,9 +449,10 @@ function showToast(msg) {
 function saveFavorites() {
   try {
     localStorage.setItem("aaProblemFavorites", JSON.stringify([...favorites]));
-  } catch(e) {}
+  } catch (e) {}
 }
 
+// -------------------- Render Results --------------------
 function render() {
   const q = norm($("search").value.trim());
   const category = $("category").value;
@@ -740,17 +462,20 @@ function render() {
 
   $("clear").classList.toggle("hidden", !q);
 
-  let rows = DATA.filter(r => {
+  const rows = DATA.filter(r => {
+    const type = String(r["ประเภท"] || "");
+
     if (category) {
-      if (category === "การสอบเทียบ" && !r["ประเภท"].includes("การสอบเทียบ")) return false;
-      else if (category === "ชน/กริปเปอร์" && !r["ประเภท"].includes("ชน/กริปเปอร์")) return false;
-      else if (category === "เปลี่ยนรุ่น" && !r["ประเภท"].includes("เปลี่ยนรุ่น")) return false;
-      else if (category === "จุดแสง" && !r["ประเภท"].includes("จุดแสง")) return false;
-      else if (category === "ค่าดรอป UV" && !r["ประเภท"].includes("ค่าดรอป UV")) return false;
-      else if (category === "วัสดุ / LENS" && !r["ประเภท"].includes("วัสดุ / LENS")) return false;
-      else if (category === "ฮาร์ดแวร์" && !r["ประเภท"].includes("ฮาร์ดแวร์")) return false;
-      else if (category === "ซอฟต์แวร์" && !r["ประเภท"].includes("ซอฟต์แวร์")) return false;
+      if (category === "การสอบเทียบ" && !type.includes("การสอบเทียบ")) return false;
+      else if (category === "ชน/กริปเปอร์" && !type.includes("ชน/กริปเปอร์")) return false;
+      else if (category === "เปลี่ยนรุ่น" && !type.includes("เปลี่ยนรุ่น")) return false;
+      else if (category === "จุดแสง" && !type.includes("จุดแสง")) return false;
+      else if (category === "ค่าดรอป UV" && !type.includes("ค่าดรอป UV")) return false;
+      else if (category === "วัสดุ / LENS" && !type.includes("วัสดุ / LENS")) return false;
+      else if (category === "ฮาร์ดแวร์" && !type.includes("ฮาร์ดแวร์")) return false;
+      else if (category === "ซอฟต์แวร์" && !type.includes("ซอฟต์แวร์")) return false;
     }
+
     if (pf && r["แพลตฟอร์ม"] !== pf) return false;
     if (pg && (r["รหัสโปรแกรม"] === "LQ" ? "LQ" : "GC") !== pg) return false;
     if (isFav && !favorites.has(r["รหัสปัญหา"])) return false;
@@ -758,10 +483,13 @@ function render() {
     if (q) {
       const textToSearch = norm([
         r["รหัสปัญหา"], r["ประเภท"], r["โปรแกรม"], r["แพลตฟอร์ม"],
-        r["คำอธิบาย (描述)"], r["การวิเคราะห์/แก้ไข (分析排查)"], r["หมายเหตุ (จุดที่ควรตรวจ)"]
+        r["คำอธิบาย (描述)"], r["การวิเคราะห์/แก้ไข (分析排查)"],
+        r["หมายเหตุ (จุดที่ควรตรวจ)"]
       ].join(" "));
+
       if (!textToSearch.includes(q)) return false;
     }
+
     return true;
   });
 
@@ -778,8 +506,8 @@ function render() {
       <article class="card">
         <div class="card-header">
           <span class="code-badge">${esc(code)}</span>
-          <button class="star-btn ${on ? 'on' : ''}" data-star="${esc(code)}" title="บันทึกรายการโปรด">
-            ${on ? '★' : '☆'}
+          <button class="star-btn ${on ? "on" : ""}" data-star="${esc(code)}" title="บันทึกรายการโปรด">
+            ${on ? "★" : "☆"}
           </button>
         </div>
         <h3 class="card-title">${esc(desc)}</h3>
@@ -796,11 +524,11 @@ function render() {
           <div class="note-box">
             <b>จุดที่ควรตรวจเพิ่มเติม:</b> ${esc(r["หมายเหตุ (จุดที่ควรตรวจ)"])}
           </div>
-        ` : ''}
+        ` : ""}
         <div class="card-footer">
           <div class="meta-info">
-            <span>⏱️ ${r["เวลาซ่อมมาตรฐาน (นาที)"] ? `${r["เวลาซ่อมมาตรฐาน (นาที)"]} นาที` : '-'}</span>
-            <span>${esc(r["อุปกรณ์"] || '')}</span>
+            <span>⏱️ ${r["เวลาซ่อมมาตรฐาน (นาที)"] ? `${r["เวลาซ่อมมาตรฐาน (นาที)"]} นาที` : "-"}</span>
+            <span>${esc(r["อุปกรณ์"] || "")}</span>
           </div>
           <button class="btn-copy-large" data-copy="${esc(code)}">
             📋 คัดลอกรหัสปัญหา: ${esc(code)}
@@ -814,11 +542,11 @@ function render() {
   $("results").classList.toggle("hidden", rows.length === 0);
 }
 
-// Event Listeners
-$("search").addEventListener("input", (e) => {
+// -------------------- Event Listeners --------------------
+$("search").addEventListener("input", event => {
   render();
-  const val = e.target.value.trim();
-  if(val.length >= 2) recordSearchQuery(val);
+  const val = event.target.value.trim();
+  if (val.length >= 2) recordSearchQuery(val);
 });
 
 $("category").addEventListener("change", render);
@@ -836,8 +564,9 @@ $("clear").addEventListener("click", () => {
   $("search").focus();
 });
 
-document.addEventListener("click", e => {
-  let tagBtn = e.target.closest(".tag-btn");
+document.addEventListener("click", event => {
+  const tagBtn = event.target.closest(".tag-btn");
+
   if (tagBtn) {
     const q = tagBtn.dataset.query;
     $("search").value = q;
@@ -856,10 +585,11 @@ $("btnReset").addEventListener("click", () => {
   render();
 });
 
-$("results").addEventListener("click", async e => {
-  let starBtn = e.target.closest("[data-star]");
+$("results").addEventListener("click", async event => {
+  const starBtn = event.target.closest("[data-star]");
+
   if (starBtn) {
-    let code = starBtn.dataset.star;
+    const code = starBtn.dataset.star;
     if (favorites.has(code)) favorites.delete(code);
     else favorites.add(code);
     saveFavorites();
@@ -867,31 +597,38 @@ $("results").addEventListener("click", async e => {
     return;
   }
 
-  let copyBtn = e.target.closest("[data-copy]");
+  const copyBtn = event.target.closest("[data-copy]");
+
   if (copyBtn) {
-    let codeToCopy = copyBtn.dataset.copy;
+    const codeToCopy = copyBtn.dataset.copy;
+
     try {
       await navigator.clipboard.writeText(codeToCopy);
       showToast("คัดลอกรหัส " + codeToCopy + " เรียบร้อยแล้ว!");
-    } catch(err) {
+    } catch (err) {
       prompt("คัดลอกรหัสนี้:", codeToCopy);
     }
   }
 });
 
-// โหลดข้อมูลจากไฟล์ data.json แยกต่างหากเมื่อเปิดเว็บ
+// -------------------- Load Data --------------------
 async function initApp() {
   try {
-    const response = await fetch('data.json');
-    if (!response.ok) throw new Error('ไม่สามารถโหลดไฟล์ข้อมูลได้');
-    DATA = await response.json();
+    const response = await fetch("data.json");
+    if (!response.ok) throw new Error("ไม่สามารถโหลดไฟล์ข้อมูลได้");
+
+    const json = await response.json();
+    if (!Array.isArray(json)) throw new Error("รูปแบบข้อมูล data.json ไม่ถูกต้อง");
+
+    DATA = json;
   } catch (err) {
     console.error(err);
-    $("resultCount").textContent = "⚠️ ไม่พบไฟล์ data.json กรุณาวางไฟล์ data.json ไว้ในโฟลเดอร์เดียวกัน";
+    $("resultCount").textContent =
+      "⚠️ ไม่พบไฟล์ data.json หรือรูปแบบข้อมูลไม่ถูกต้อง กรุณาวางไฟล์ data.json ไว้ในโฟลเดอร์เดียวกัน";
   }
+
   renderDynamicTags();
   checkTimeAndAuth();
-  setInterval(checkTimeAndAuth, 30000); 
   render();
 }
 
